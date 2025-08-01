@@ -2,25 +2,22 @@ name: Node.js Build and Test
 
 on:
   push:
-    branches: [backend]
+    branches: [ backend ]
   pull_request:
-    branches: [backend]
+    branches: [ backend ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '20'
 
-      - name: Install backend dependencies
-        run: npm install
-        working-directory: ./backend
-
-      - name: Run backend tests
-        run: npm test || echo "No tests yet"
-        working-directory: ./backend
+      - run: npm install
+      - run: npm run build
+      - run: npm test
